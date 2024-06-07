@@ -2,7 +2,7 @@ import numpy as np
 import scipy as sp
 import time
 seed = 42
-n= 500
+n= 1000
 p= 1000
 
 def SVD_inv(A):
@@ -18,7 +18,7 @@ def SVD_inv(A):
     
 
 rng = np.random.default_rng(seed)
-X = rng.exponential(2, (n, p))
+X = rng.normal(0, 1, (n, p))
 beta = np.array([i for i in range(p)])
 e = rng.normal(0, 1 , n)
 y = X@beta + e
