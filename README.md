@@ -46,13 +46,25 @@ The results show that for matrices of sizes 1000 by 1000, 1000 by 500, and 500 b
 
 ## Inversion methods
 
-In this section, four different techniques for inverting a square matrix (1000 x1000) will be demonstrated: 
+In this section, four different techniques for inverting a square matrix (1000 x1000) will be demonstrated : 
 - Invert function
 - Moore Penrose pseudo-invert (SVD)
 - QR Decomposition
 - LU Decomposition
 
+Time computation
 |Condition Number|inv|pinv|qr|lu|
 |-|-|-|-|-|
-1e3
-1e16
+e3|0.26|1.25|0.66|0.07|
+e10|0.27|1.2|0.69|0.44|
+e13|0.19|1.3|0.7|0.1|
+e16|0.13|1.2|0.62|0.11|
+
+
+L2 norm between Identity Maxtrix and the matrix product of X and the calculated invert.
+|Condition Number|inv|pinv|qr|lu|
+|-|-|-|-|-|
+e3|e-22|e-24|e-25|e-22|
+e10|e-7|e-11|e-10|e-7|
+e13|e-1|e-3|e-4|e-1|
+e16|e4|1|e3|e4|

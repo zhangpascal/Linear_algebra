@@ -8,14 +8,15 @@ n = 1000
 p = 1000
 
 X = np.random.normal(0,1,(n,n))
-X=(X-np.mean(X,axis=0))/np.std(X,axis=0)
+X=(X-np.mean(X,axis=0))
+#/np.std(X,axis=0)
 print(np.linalg.cond(X))
 
 t1 = time.time()
 X1 = np.linalg.inv(X)
 
 t2 = time.time()
-X2 = np.linalg.pinv(X,rcond= 1e-10)
+X2 = np.linalg.pinv(X)
 
 t3 = time.time()
 Q, R = np.linalg.qr(X)
