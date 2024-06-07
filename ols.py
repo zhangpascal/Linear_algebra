@@ -1,11 +1,12 @@
 import numpy as np
-
+import scipy as sp
+import time
 seed = 42
-n= 100
-p= 50
+n= 500
+p= 1000
 
 def SVD_inv(A):
-    print(np.linalg.cond(A))
+    #print(np.linalg.cond(A))
     
     U, S, V = np.linalg.svd(A)
 
@@ -17,21 +18,30 @@ def SVD_inv(A):
     
 
 rng = np.random.default_rng(seed)
-X = rng.exponential( 2, (n, p))
+X = rng.exponential(2, (n, p))
 beta = np.array([i for i in range(p)])
-e = rng.laplace(200, 1 , n)
+e = rng.normal(0, 1 , n)
 y = X@beta + e
 
 X_mean = np.mean(X, axis=0)
 X_std = np.std(X, axis=0)
-X = (X-X_mean)/X_std
+X_normed = (X-X_mean)/X_std
 
-y = y-np.mean(y)
+y_centered = y-np.mean(y)
 
-beta_est = SVD_inv(X.T@X)@X.T@y
+t1 = time.time()
+#beta_est = SVD_inv(X_normed.T@X_normed)@X_normed.T@y_centered
 
-beta_est_ref = np.linalg.lstsq(X, y)
+t2 = time.time()
+beta_est_ref_np = np.linalg.lstsq(X_normed, y_centered, rcond=1e-10)
 
-print(beta_est/X_std, beta_est_ref[0])
+t3 = time.time()
+beta_est_ref_sp = sp.linalg.lstsq(X_normed, y_centered, cond= 1e-10)
 
-print(np.sum(y-X@beta_est), np.sum(y-X@beta_est_ref[0]))
+t4 = time.time()
+
+
+print(t2-t1, t3-t2, t4-t3)
+
+print(np.sum(y_centered-X_normed@beta_est_ref_np[0]), np.sum(y_centered-X_normed@beta_est_ref_sp[0]))
+
