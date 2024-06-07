@@ -4,8 +4,8 @@ from gendata import gendata
 import time
 
 seed = 42
-n= 1000
-p= 1000
+n = 1000
+p = 1000
 
 X, y = gendata(n, p, seed)
 
