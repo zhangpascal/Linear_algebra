@@ -15,13 +15,14 @@ def grad_descent(X, y, alpha, num_it):
     return beta, cost
 
 seed = 42
-n = 100
+n = 1000
 p = 100
 
 #rng = np.random.default_rng(seed)
 X = np.random.normal(0, 1, (n, p))
 beta = np.array([i%2 for i in range(p)])
-y = X@beta
+e =  np.random.randn(n)
+y = X@beta + e
 
-beta, cost = grad_descent(X, y, 1e-2, 10000)
+beta, cost = grad_descent(X, y, 1e-2, 100000)
 print(beta, cost[-1])
