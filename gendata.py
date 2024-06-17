@@ -4,8 +4,8 @@ def gendata(n, p, seed):
     rng = np.random.default_rng(seed)
     X = rng.normal(0, 1, (n, p))
     beta = np.array([i for i in range(p)])
-    e = rng.exponential(2 , n)
-    y = X@beta + e
+    e = rng.exponential(4 , n)
+    y = X@beta 
 
     X_mean = np.mean(X, axis=0)
     X_std = np.std(X, axis=0)
