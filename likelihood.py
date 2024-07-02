@@ -1,4 +1,11 @@
 import numpy as np
+from scipy.optimize import minimize
+from scipy.stats import norm
+
+def log_likelihood(params, data):
+    mu, sigma = params
+    return -np.sum(np.log(norm.pdf(data, loc=mu, scale=sigma)))
+
 
 def gaussian_likelihood(x, alpha = 1e-3, epsilon = 1e-3):
     n = x.size
@@ -84,6 +91,11 @@ n = 99
 x = np.random.laplace(2,4,n)
 
 mu_est, b_est = laplacian_likelihood(x,1e-3,1e-3)
+
+
+result = minimize(log_likelihood, [0, 1], args=(x,), method='L-BFGS-B', bounds=[(None, None), (1e-6, None)])
+
+mu_mle, sigma_mle = result.x
 
 print(mu_est,b_est)
 print(np.median(x), np.sum(np.abs(x-np.median(x)))/n)

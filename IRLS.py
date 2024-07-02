@@ -10,7 +10,7 @@ def iterative_reweighting_mu(x, tol=1e-6, max_iter=1000):
 
     while not flag and i < max_iter:
 
-        res = (x - mu)/sigma
+        res = x - mu
 
         weights = 1 / (np.abs(res) + epsilon)
 
@@ -36,7 +36,7 @@ def iterative_reweighting_sigma(x, mu,  tol=1e-6, max_iter=10000):
 
     while not flag and i < max_iter:
 
-        res = (x - mu)/sigma
+        res = x - mu
 
         weights = 1 / (np.abs(res) + epsilon)
 
