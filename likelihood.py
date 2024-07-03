@@ -87,18 +87,18 @@ def laplacian_likelihood(x, alpha = 1e-3, epsilon = 1e-3):
         
     return mu, b
 
-n = 99
-x = np.random.laplace(2,4,n)
+n = 1000
+x = np.random.normal(0,1,n)
 
-mu_est, b_est = laplacian_likelihood(x,1e-3,1e-3)
+#mu_est, b_est = laplacian_likelihood(x,1e-3,1e-3)
 
 
 result = minimize(log_likelihood, [0, 1], args=(x,), method='L-BFGS-B', bounds=[(None, None), (1e-6, None)])
 
 mu_mle, sigma_mle = result.x
 
-print(mu_est,b_est)
-print(np.median(x), np.sum(np.abs(x-np.median(x)))/n)
+print(mu_mle,sigma_mle)
+
             
      
     
